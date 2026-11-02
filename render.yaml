@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: academy-uz
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: academyadmin
+      - key: ADMIN_PASSWORD
+        sync: false      # Render panelida o'zingiz kiritasiz
+      - key: DATABASE_URL
+        sync: false      # Neon ulanish manzili
+      - key: CORS_ORIGINS
+        value: https://academy-uz.onrender.com
